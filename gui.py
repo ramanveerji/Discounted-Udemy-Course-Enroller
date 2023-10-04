@@ -114,7 +114,8 @@ def scrape():
         e = traceback.format_exc()
         main_window.write_event_value(
             "Error",
-            e + f"\n\n{udemy.link}\n{udemy.title}" + f"|:|Unknown Error {VERSION}",
+            f"{e}\n\n{udemy.link}\n{udemy.title}"
+            + f"|:|Unknown Error {VERSION}",
         )
 
 
@@ -632,8 +633,7 @@ while True:
         udemy.settings["discounted_only"] = values["discounted_only"]
         udemy.save_settings()
 
-        user_dumb = udemy.is_user_dumb()
-        if user_dumb:
+        if user_dumb := udemy.is_user_dumb():
             sg.popup_auto_close(
                 "What do you even expect to happen!",
                 auto_close_duration=5,
@@ -641,10 +641,6 @@ while True:
             )
             continue
 
-            # for key in all_functions:
-            # main_window[f"p{key}"].update(0, visible=True)
-            # main_window[f"img{index}"].update(visible=False)
-            # main_window[f"pcol{index}"].update(visible=False)
         scraper = Scraper(udemy.sites)
         udemy.window = main_window
         threading.Thread(target=scrape, daemon=True).start()

@@ -54,7 +54,8 @@ def scrape():
         print(
             (
                 "Error",
-                e + f"\n\n{udemy.link}\n{udemy.title}" + f"|:|Unknown Error {VERSION}",
+                f"{e}\n\n{udemy.link}\n{udemy.title}"
+                + f"|:|Unknown Error {VERSION}",
             )
         )
 
@@ -75,7 +76,7 @@ while login_error:
         else:
             email = input("Email: ")
             password = input("Password: ")
-        print(fb + "Trying to login")
+        print(f"{fb}Trying to login")
         udemy.manual_login(email, password)
         udemy.get_session_info()
         udemy.settings["email"], udemy.settings["password"] = email, password
@@ -85,7 +86,7 @@ while login_error:
         udemy.settings["email"], udemy.settings["password"] = "", ""
     udemy.save_settings()
 
-print(fg + f"Logged in as {udemy.display_name}")
+print(f"{fg}Logged in as {udemy.display_name}")
 user_dumb = udemy.is_user_dumb()
 if user_dumb:
     print(bw + fr + "What do you even expect to happen!")
